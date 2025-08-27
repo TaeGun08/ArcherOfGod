@@ -13,11 +13,16 @@ public class GameEntryState : GameStateBase
     {
         for (int i = GameManager.GameStartTime; i > 0; i--)
         {
-            GameManager.GameStartTextUI[0].text = $"{i}!!";
+            GameManager.GameStartTextUI.text = $"{i}!!";
+            yield return new WaitForSeconds(1f);
         }
+
+        GameManager.GameStartTextUI.text = "Game Start!!";
+
+        yield return new WaitForSeconds(0.5f);
         
-        GameManager.GameStartTextUI[0].text = "Game Start!!";
-        yield break;
+        GameManager.GameStartUI.SetActive(false);
+        GameController.ChangeState<GamePlayingState>();
     }
 
     public override void StateExit()
