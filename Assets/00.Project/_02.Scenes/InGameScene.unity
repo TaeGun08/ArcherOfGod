@@ -562,7 +562,7 @@ GameObject:
   - component: {fileID: 101028479}
   - component: {fileID: 101028478}
   - component: {fileID: 101028480}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2234,6 +2234,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3628699124235198663, guid: 0b4b28aba89307846b9259b163237203, type: 3}
+      propertyPath: arrowPrefab
+      value: 
+      objectReference: {fileID: 5790679564297895805, guid: 4a500fe01baded045a2cf4d803e3278f, type: 3}
+    - target: {fileID: 3628699124235198663, guid: 0b4b28aba89307846b9259b163237203, type: 3}
+      propertyPath: attackDelay
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5143568925202363734, guid: 0b4b28aba89307846b9259b163237203, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -2309,7 +2317,7 @@ Transform:
   m_GameObject: {fileID: 1143892612}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.18, y: -1.57, z: 0}
+  m_LocalPosition: {x: -3.18, y: -1.68, z: 0}
   m_LocalScale: {x: 2.9507816, y: 2.9507816, z: 2.9507816}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2943,7 +2951,7 @@ GameObject:
   - component: {fileID: 1615576194}
   - component: {fileID: 1615576193}
   - component: {fileID: 1615576195}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3070,14 +3078,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2016571609147124088, guid: f3c9d61c4f7aa7d48a3d4631360f1442, type: 3}
-      propertyPath: arrowPrefab
-      value: 
-      objectReference: {fileID: 5790679564297895805, guid: 4a500fe01baded045a2cf4d803e3278f, type: 3}
-    - target: {fileID: 2016571609147124088, guid: f3c9d61c4f7aa7d48a3d4631360f1442, type: 3}
-      propertyPath: attackDelay
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2359896211079604955, guid: f3c9d61c4f7aa7d48a3d4631360f1442, type: 3}
       propertyPath: m_Name
       value: Player

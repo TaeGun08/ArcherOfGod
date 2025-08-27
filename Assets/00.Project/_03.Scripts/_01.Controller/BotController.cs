@@ -26,6 +26,12 @@ public class BotController : MonoBehaviour
         }
         
         currentState = states[0];
+        StartCoroutine(WaitStateEnter());
+    }
+
+    private IEnumerator WaitStateEnter()
+    {
+        yield return new WaitForSeconds(6f);
         currentState?.StateEnter();
     }
 

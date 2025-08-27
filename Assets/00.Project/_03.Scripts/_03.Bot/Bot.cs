@@ -11,7 +11,7 @@ public class Bot : MonoBehaviour, IDamageAble
     public void TakeDamage(float damage)
     {
         CurrentHp -= damage;
-
+        
         if (CurrentHp > 0) return;
         GameManager.Instance.PlayerWin = true;
     }

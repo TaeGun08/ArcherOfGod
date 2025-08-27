@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackState : PlayerStateBase
+public class BotAttackState : BotStateBase
 {
     private static readonly int Attack = Animator.StringToHash("Attack");
 
@@ -61,25 +61,26 @@ public class PlayerAttackState : PlayerStateBase
             }
         }
 
-        arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity, transform);
+        arrow = Instantiate(arrowPrefab, transform.position, Quaternion.Euler(0, 0, -180f), transform);
         Arrow(arrow);
         arrows.Enqueue(arrow);
+        arrow.TargetPlayerOrBot = true;
     }
 
     private void Arrow(Arrow arrow)
     {
         arrow.gameObject.SetActive(true);
-        Vector2 p0 = PlayerController.transform.position + (Vector3.up * 0.5f);
+        Vector2 p0 = BotController.transform.position + (Vector3.up * 0.5f);
         Vector2 p1 = Vector2.up * 8f;
-        Vector2 p2 = GameManager.Instance.Bot.transform.position;
-        arrow.ShotArrow(p0, p1, p2, 180f);
+        Vector2 p2 = GameManager.Instance.Player.transform.position;
+        arrow.ShotArrow(p0, p1, p2, 0f);
     }
 
     private void Update()
     {
         if (InputController.Instance.Direction.magnitude > 0.01f)
         {
-            PlayerController.ChangeState<PlayerWalkState>();
+            BotController.ChangeState<BotWalkState>();
         }
     }
 

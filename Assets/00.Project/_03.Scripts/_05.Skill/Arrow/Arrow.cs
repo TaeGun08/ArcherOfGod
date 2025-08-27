@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,35 +6,70 @@ using UnityEngine;
 public class Arrow : MonoBehaviour, ITarget
 {
     [field: Header("Arrow")]
-    [field: SerializeField] public bool TargetPlayerOrBot { get; set; }
+    [field: SerializeField]
+    public bool TargetPlayerOrBot { get; set; }
 
     [SerializeField] private float damage;
     [SerializeField] private float duration = 2f;
     private float elapsedTime = 0f;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private Coroutine coroutine;
+
+    private Collider2D collider2D;
+
+    private void Awake()
+    {
+        collider2D = GetComponent<Collider2D>();
+    }
+
+    private void OnDisable()
+    {
+        elapsedTime = 0f;
+        collider2D.enabled = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         IDamageAble damageable;
         switch (TargetPlayerOrBot)
         {
             case true:
-                if (collision.gameObject.layer == LayerMask.NameToLayer("Bot")) return;
+                if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+                {
+                    damageable = other.GetComponent<IDamageAble>();
+                    DamageAble(damageable);
+                }
 
-                damageable = collision.GetComponent<IDamageAble>();
-                if (damageable != null) damageable.TakeDamage(damage);
                 break;
             case false:
-                if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) return;
+                if (other.gameObject.layer == LayerMask.NameToLayer("Bot"))
+                {
+                    damageable = other.GetComponent<IDamageAble>();
+                    DamageAble(damageable);
+                }
 
-                damageable = collision.GetComponent<IDamageAble>();
-                if (damageable != null) damageable.TakeDamage(damage);
                 break;
         }
     }
 
-    public IEnumerator ShotArrow(Vector2 p0, Vector2 p1, Vector2 p2)
+    private void DamageAble(IDamageAble damageable)
+    {
+        if (damageable == null) return;
+        damageable.TakeDamage(damage);
+        gameObject.SetActive(false);
+        coroutine = null;
+    }
+
+    public void ShotArrow(Vector2 p0, Vector2 p1, Vector2 p2, float a)
+    {
+        coroutine = StartCoroutine(ShotArrowCoroutine(p0, p1, p2, a));
+    }
+
+    private IEnumerator ShotArrowCoroutine(Vector2 p0, Vector2 p1, Vector2 p2, float a)
     {
         Vector2 previousPos = p0;
+        p2.y = -1.55f;
+        elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
@@ -42,20 +78,23 @@ public class Arrow : MonoBehaviour, ITarget
 
             Vector2 pos = BezierCurve.Quadratic(p0, p1, p2, t);
             transform.position = pos;
-            
+        
             Vector2 direction = pos - previousPos;
             if (direction != Vector2.zero)
             {
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+                transform.rotation = Quaternion.Euler(0f, 0f, angle + a);
             }
 
-            previousPos = pos; 
+            previousPos = pos;
             yield return new WaitForEndOfFrame();
         }
 
+        collider2D.enabled = false;
+    
         yield return new WaitForSeconds(4f);
-        
+    
         gameObject.SetActive(false);
     }
+
 }
