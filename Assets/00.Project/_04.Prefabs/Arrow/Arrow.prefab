@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2170458403802950956}
   - component: {fileID: 8899154526404716320}
+  - component: {fileID: 8159422634698031571}
   - component: {fileID: 5790679564297895805}
   m_Layer: 7
   m_Name: Arrow
@@ -153,6 +154,33 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!50 &8159422634698031571
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7784234129614967968}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &5790679564297895805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,3 +196,4 @@ MonoBehaviour:
   <TargetPlayerOrBot>k__BackingField: 0
   damage: 5
   <Duration>k__BackingField: 2
+  particlePrefab: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}

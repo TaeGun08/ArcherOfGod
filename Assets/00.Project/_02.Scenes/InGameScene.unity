@@ -5393,10 +5393,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8730597518523341026, guid: f3c9d61c4f7aa7d48a3d4631360f1442, type: 3}
-      propertyPath: attackDelay
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 8932116515807871284, guid: f3c9d61c4f7aa7d48a3d4631360f1442, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5

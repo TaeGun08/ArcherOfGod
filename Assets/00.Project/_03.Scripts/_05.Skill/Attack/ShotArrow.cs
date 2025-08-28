@@ -13,6 +13,7 @@ public class ShotArrow : AttackBase
 
     public override void AttackEntry(float attackSpeed)
     {
+        animator.ResetTrigger("Walk");
         attackCroutine = StartCoroutine(ShotArrowCoroutine(attackSpeed));
     }
 

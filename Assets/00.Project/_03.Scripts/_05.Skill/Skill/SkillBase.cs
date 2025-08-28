@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class SkillBase : MonoBehaviour
 {
+    protected static readonly int Attack = Animator.StringToHash("Attack");
+    
     protected Animator animator;
     protected Rigidbody2D rigidbody2D;
     public Rigidbody2D TargetRigidBody2D { get; set; }
@@ -40,7 +42,20 @@ public abstract class SkillBase : MonoBehaviour
         pools.Enqueue(pool);
         return pool;
     }
-    
-    public abstract void SkillEntry();
-    public abstract void SkillEnd();
+
+    public virtual void SkillEntry()
+    {
+        animator.ResetTrigger("Idle");
+        animator.ResetTrigger("Walk");
+        skillCroutine = StartCoroutine(SkillCoroutine());
+    }
+
+    protected abstract IEnumerator SkillCoroutine();
+
+    public virtual void SkillEnd()
+    {
+        InputController.Instance.UseSkill = false;
+        InputController.Instance.SkillCount = 0;
+        skillCroutine = null;
+    }
 }

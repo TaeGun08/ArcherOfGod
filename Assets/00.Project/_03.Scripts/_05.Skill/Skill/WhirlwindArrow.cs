@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WhirlwindArrow : MonoBehaviour
+public class WhirlwindArrow : SkillBase
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Whirlwind Settings")]
+    [SerializeField] private GameObject whirlwind;
 
-    // Update is called once per frame
-    void Update()
+    protected override IEnumerator SkillCoroutine()
     {
-        
+        animator.SetTrigger(Attack);
+        PoolObject(whirlwind);
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.Player.PlayerController.ChangeState<PlayerAttackState>();
     }
 }

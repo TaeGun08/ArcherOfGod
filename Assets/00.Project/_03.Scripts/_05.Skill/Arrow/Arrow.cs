@@ -12,7 +12,10 @@ public class Arrow : MonoBehaviour, ITarget
     [SerializeField] private ParticleSystem particlePrefab;
     private float elapsedTime = 0f;
 
-    private Coroutine coroutine;
+    [SerializeField] private bool groundVfx;
+    [SerializeField] private bool hasHitGround;
+
+    private Coroutine arrowCoroutine;
 
     private Collider2D collider2D;
     
@@ -25,8 +28,7 @@ public class Arrow : MonoBehaviour, ITarget
 
     private void OnDisable()
     {
-        elapsedTime = 0f;
-        collider2D.enabled = true;
+        ResetArrow();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -52,9 +54,13 @@ public class Arrow : MonoBehaviour, ITarget
                 break;
         }
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground") && groundVfx)
         {
             ArrowParticle();
+            if (hasHitGround)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
@@ -78,19 +84,35 @@ public class Arrow : MonoBehaviour, ITarget
         if (damageable == null) return;
         damageable.TakeDamage(damage);
         gameObject.SetActive(false);
-        StopCoroutine(coroutine);
-        coroutine = null;
+        StopArrowCoroutine();
+        arrowCoroutine = null;
+    }
+    
+    public void StopArrowCoroutine()
+    {
+        if (arrowCoroutine == null) return;
+        StopCoroutine(arrowCoroutine);
+        arrowCoroutine = null;
+        collider2D.enabled = false;
     }
 
+    public void ResetArrow()
+    {
+        elapsedTime = 0f;
+        collider2D.enabled = true;
+    }
+    
     public void ShotArrow(Vector2 p0, Vector2 p1, Vector2 p2)
     {
-        coroutine = StartCoroutine(ShotArrowCoroutine(p0, p1, p2));
+        arrowCoroutine = StartCoroutine(ShotArrowCoroutine(p0, p1, p2));
     }
 
     private IEnumerator ShotArrowCoroutine(Vector2 p0, Vector2 p1, Vector2 p2)
     {
         Vector2 previousPos = p0;
+        
         p2.y = -1.55f;
+        
         elapsedTime = 0f;
 
         while (elapsedTime < Duration)
@@ -112,11 +134,26 @@ public class Arrow : MonoBehaviour, ITarget
             yield return new WaitForEndOfFrame();
         }
 
+        if (p2.x >= -1.9f && p2.x <= 1.9f)
+        {
+            Vector2 startPos = transform.position;
+            Vector2 endPos = new Vector2(p2.x, -8f);
+            float dropDuration = 0.5f;
+            float dropTime = 0f;
+
+            while (dropTime < dropDuration)
+            {
+                dropTime += Time.deltaTime;
+                float t = dropTime / dropDuration;
+                transform.position = Vector2.Lerp(startPos, endPos, t);
+                yield return null;
+            }
+        }
+        
         collider2D.enabled = false;
     
         yield return new WaitForSeconds(4f);
     
         gameObject.SetActive(false);
     }
-
 }

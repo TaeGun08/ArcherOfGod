@@ -22,6 +22,9 @@ public class PlayerSkillState : PlayerStateBase
     {
         skill = skillBases[InputController.Instance.SkillCount - 1];
         skill.TargetRigidBody2D = GameManager.Instance.Bot.GetComponent<Rigidbody2D>();
+        Vector3 scale = Rigidbody2D.transform.localScale;
+        scale.x = -1f;
+        Rigidbody2D.transform.localScale = scale;
         skill.SkillEntry();
     }
 

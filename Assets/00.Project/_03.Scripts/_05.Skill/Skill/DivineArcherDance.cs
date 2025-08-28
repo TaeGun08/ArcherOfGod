@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class DivineArcherDance : SkillBase
 {
-    private static readonly int Attack = Animator.StringToHash("Attack");
-    
     [Header("SkillSettings")] 
     [SerializeField] private float jumpForce;
     [SerializeField] private float spinSpeed;
@@ -13,13 +11,8 @@ public class DivineArcherDance : SkillBase
     [SerializeField] private float shotInterval;
 
     private int arrowCount = 5;
-
-    public override void SkillEntry()
-    {
-        skillCroutine = StartCoroutine(SkillCoroutine());
-    }
-
-    private IEnumerator SkillCoroutine()
+    
+    protected override IEnumerator SkillCoroutine()
     {
         rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f);
         rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -47,7 +40,7 @@ public class DivineArcherDance : SkillBase
         }
 
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.6f);
         GameManager.Instance.Player.PlayerController.ChangeState<PlayerAttackState>();
     }
 
@@ -60,12 +53,5 @@ public class DivineArcherDance : SkillBase
         arrow.Duration = 1.5f;
         arrow.TargetPlayerOrBot = rigidbody2D.gameObject.layer.Equals(LayerMask.NameToLayer("Bot"));
         arrow.ShotArrow(p0, p1, p2);
-    }
-
-    public override void SkillEnd()
-    {
-        InputController.Instance.UseSkill = false;
-        InputController.Instance.SkillCount = 0;
-        skillCroutine = null;
     }
 }
