@@ -8,6 +8,7 @@ public class BotWalkState : BotStateBase
     private static readonly int Idle = Animator.StringToHash("Idle");
     private MovementBase movementBase;
     private ArrowScanner arrowScanner;
+    private Coroutine coroutine;
 
     public override void Initialize(BotContext context)
     {
@@ -22,7 +23,7 @@ public class BotWalkState : BotStateBase
         Animator.SetTrigger(Walk);
         float dirX = Random.Range(0, 2) == 0 ? -1 : 1;
         arrowScanner.Direction = new Vector2(dirX, 0);
-        StartCoroutine(RandomWalk());
+        coroutine = StartCoroutine(RandomWalk());
     }
 
     private IEnumerator RandomWalk()
@@ -54,6 +55,7 @@ public class BotWalkState : BotStateBase
 
     public override void StateExit()
     {
+        StopCoroutine(coroutine);
         Animator.SetTrigger(Idle);
     }
 }

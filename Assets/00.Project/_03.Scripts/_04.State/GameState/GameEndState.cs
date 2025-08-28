@@ -12,10 +12,20 @@ public class GameEndState : GameStateBase
 
     private IEnumerator GameEndCoroutine()
     {
-        GameManager.GameEndUI.SetActive(true);
-        
         yield return new WaitForSeconds(1f);
+        GameManager.GameEndUI.SetActive(true);
 
+        if (GameManager.Player.Stat.CurrentHp <= 0)
+        {
+            GameManager.GameEndTextUI.text = "You Lose!";
+        }
+
+        if (GameManager.Bot.Stat.CurrentHp <= 0)
+        {
+            GameManager.GameEndTextUI.text = "You Win!";
+        }
+
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadSceneAsync(0);
     }
 

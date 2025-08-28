@@ -7,6 +7,7 @@ public class InputController : SingletonBehavior<InputController>
 {
     public Vector2 Direction { get; set; }
     public int SkillCount { get; set; }
+    public bool UseSkill { get; set; }
 
     private void Update()
     {
@@ -31,5 +32,9 @@ public class InputController : SingletonBehavior<InputController>
         else if (Input.GetKeyDown(KeyCode.Alpha3)) SkillCount = 3;
         else if (Input.GetKeyDown(KeyCode.Alpha4)) SkillCount = 4;
         else if (Input.GetKeyDown(KeyCode.Alpha5)) SkillCount = 5;
+
+        if (SkillCount == 0 || UseSkill) return;
+        GameManager.Instance.Player.PlayerController.ChangeState<PlayerSkillState>();
+        UseSkill = true;
     }
 }

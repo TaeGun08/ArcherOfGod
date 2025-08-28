@@ -634,6 +634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5611662911209504721}
   - component: {fileID: 2116633194116948374}
+  - component: {fileID: 5777748161588937552}
   m_Layer: 0
   m_Name: PlayerSkillState
   m_TagString: Untagged
@@ -668,6 +669,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a007a615a21f0c34492e45fe7a422d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5777748161588937552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4238320365689891338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c00d94b050f10fa4db50d9bc4e3d55c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 7
+  spinSpeed: 720
+  duration: 1
+  arrow: {fileID: 5790679564297895805, guid: 4a500fe01baded045a2cf4d803e3278f, type: 3}
+  shotInterval: 0.2
 --- !u!1 &4409242864860124615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,4 +1117,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 5790679564297895805, guid: 4a500fe01baded045a2cf4d803e3278f, type: 3}
-  arrowAngle: 180

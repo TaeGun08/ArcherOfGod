@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private PlayerStateBase currentState;
+    public PlayerStateBase CurrentState => currentState;
     private PlayerStateBase[] states;
 
     private void Awake()

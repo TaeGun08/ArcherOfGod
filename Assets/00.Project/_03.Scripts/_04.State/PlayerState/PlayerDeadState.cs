@@ -9,6 +9,7 @@ public class PlayerDeadState : PlayerStateBase
     public override void StateEnter()
     {
         Animator.SetTrigger(Dead);
+        Rigidbody2D.velocity = Vector2.zero;
     }
 
     public override void StateExit()

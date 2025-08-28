@@ -167,4 +167,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TargetPlayerOrBot>k__BackingField: 0
   damage: 5
-  duration: 2
+  <Duration>k__BackingField: 2

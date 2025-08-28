@@ -8,7 +8,7 @@ public class Arrow : MonoBehaviour, ITarget
     [field: Header("Arrow")]
     [field: SerializeField] public bool TargetPlayerOrBot { get; set; }
     [SerializeField] private float damage;
-    [SerializeField] private float duration = 2f;
+    [field: SerializeField] public float Duration { get; set; }
     private float elapsedTime = 0f;
 
     private Coroutine coroutine;
@@ -70,10 +70,10 @@ public class Arrow : MonoBehaviour, ITarget
         p2.y = -1.55f;
         elapsedTime = 0f;
 
-        while (elapsedTime < duration)
+        while (elapsedTime < Duration)
         {
             elapsedTime += Time.deltaTime;
-            float t = elapsedTime / duration;
+            float t = elapsedTime / Duration;
 
             Vector2 pos = BezierCurve.Quadratic(p0, p1, p2, t);
             transform.position = pos;

@@ -8,6 +8,7 @@ public class BotAttackState : BotStateBase
 {
     private AttackBase attackBase;
     private ArrowScanner arrowScanner;
+    private Coroutine coroutine;
 
     public override void Initialize(BotContext context)
     {
@@ -24,7 +25,7 @@ public class BotAttackState : BotStateBase
         Vector3 scale = Rigidbody2D.transform.localScale;
         scale.x = 1f;
         Rigidbody2D.transform.localScale = scale;
-        StartCoroutine(RandomTimeCoroutine());
+        coroutine = StartCoroutine(RandomTimeCoroutine());
     }
 
     private IEnumerator RandomTimeCoroutine()
@@ -35,6 +36,7 @@ public class BotAttackState : BotStateBase
 
     public override void StateExit()
     {
+        StopCoroutine(coroutine);
         attackBase.AttackEnd();
     }
 }
