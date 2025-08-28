@@ -1,91 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BotAttackState : BotStateBase
 {
-    private static readonly int Attack = Animator.StringToHash("Attack");
+    private AttackBase attackBase;
+    private ArrowScanner arrowScanner;
 
-    [Header("AttackSettings")] [SerializeField]
-    private float attackDelay;
-
-    [SerializeField] private Arrow arrowPrefab;
-
-    private Queue<Arrow> arrows = new Queue<Arrow>();
-
-    private Coroutine attackCroutine;
+    public override void Initialize(BotContext context)
+    {
+        base.Initialize(context);
+        attackBase = GetComponent<AttackBase>();
+        attackBase.Initialize(context);
+        arrowScanner = FindAnyObjectByType<ArrowScanner>();
+    }
 
     public override void StateEnter()
     {
-        attackCroutine = StartCoroutine(ShotArrow());
+        attackBase.TargetRigidBody2D = GameManager.Instance.Player.GetComponent<Rigidbody2D>();
+        attackBase.AttackEntry(Stat.ShotSpeed);
+        Vector3 scale = Rigidbody2D.transform.localScale;
+        scale.x = 1f;
+        Rigidbody2D.transform.localScale = scale;
+        StartCoroutine(RandomTimeCoroutine());
     }
 
-    private IEnumerator ShotArrow()
+    private IEnumerator RandomTimeCoroutine()
     {
-        WaitForSeconds wfs = new WaitForSeconds(attackDelay);
-        
-        while (true)
-        {
-            Animator.SetTrigger(Attack);
-            
-            yield return null;
-            
-            while (Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.6f)
-            {
-                yield return null;
-            }
-
-            PoolArrow();
-
-            yield return wfs;
-        }
-    }
-
-    private void PoolArrow()
-    {
-        Arrow arrow = null;
-
-        if (arrows.Count > 0)
-        {
-            for (int i = 0; i < arrows.Count; i++)
-            {
-                arrow = arrows.Dequeue();
-                if (arrow.gameObject.activeSelf == false)
-                {
-                    Arrow(arrow);
-                    arrows.Enqueue(arrow);
-                    return;
-                }
-
-                arrows.Enqueue(arrow);
-            }
-        }
-
-        arrow = Instantiate(arrowPrefab, transform.position, Quaternion.Euler(0, 0, -180f), transform);
-        Arrow(arrow);
-        arrows.Enqueue(arrow);
-        arrow.TargetPlayerOrBot = true;
-    }
-
-    private void Arrow(Arrow arrow)
-    {
-        arrow.gameObject.SetActive(true);
-        Vector2 p0 = BotController.transform.position + (Vector3.up * 0.5f);
-        Vector2 p1 = Vector2.up * 8f;
-        Vector2 p2 = GameManager.Instance.Player.transform.position;
-        arrow.ShotArrow(p0, p1, p2, 0f);
-    }
-
-    private void Update()
-    {
-        if (InputController.Instance.Direction.magnitude > 0.01f)
-        {
-            BotController.ChangeState<BotWalkState>();
-        }
+        yield return new WaitForSeconds(Random.Range(2f, 4f));
+        BotController.ChangeState<BotWalkState>();
     }
 
     public override void StateExit()
     {
-        attackCroutine = null;
+        attackBase.AttackEnd();
     }
 }

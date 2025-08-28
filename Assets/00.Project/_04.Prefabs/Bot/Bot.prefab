@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4665999326993402779}
   - component: {fileID: 3628699124235198663}
+  - component: {fileID: 7446602603813821016}
   m_Layer: 0
   m_Name: BotAttackState
   m_TagString: Untagged
@@ -44,6 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442764b93dca1fd44bf55aecc97e6c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7446602603813821016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801917466180165602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7272828ee5c3bb48aade05380108b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 5790679564297895805, guid: 4a500fe01baded045a2cf4d803e3278f, type: 3}
 --- !u!1 &824525460078267627
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,6 +142,87 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1963493235249873861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8369265791518675605}
+  - component: {fileID: 8139935290290030766}
+  - component: {fileID: 3294645697204321405}
+  m_Layer: 6
+  m_Name: ArrowScanner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8369265791518675605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963493235249873861}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5143568925202363734}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &8139935290290030766
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963493235249873861}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 4
+--- !u!114 &3294645697204321405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963493235249873861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e6a25e04ea46f74196138c6247b4cb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dangerDistance: 1
 --- !u!1 &2005833853191753044
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,6 +233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6798261039051716006}
   - component: {fileID: 4381513532849111825}
+  - component: {fileID: 7354529020558817738}
   m_Layer: 0
   m_Name: BotWalkState
   m_TagString: Untagged
@@ -170,6 +266,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8290ea0cf4f28f44b362e52b4ad6a7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7354529020558817738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005833853191753044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587c1c8a97db30942b28b9ee85e67fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2041293714968339261
@@ -979,6 +1087,7 @@ Transform:
   m_Children:
   - {fileID: 239459020756842892}
   - {fileID: 644257702213938879}
+  - {fileID: 8369265791518675605}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4397985081849536335
@@ -1067,5 +1176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 232747e457511374da9788a97598a6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHp>k__BackingField: 100
-  <CurrentHp>k__BackingField: 100
+  <Stat>k__BackingField:
+    MaxHp: 100
+    CurrentHp: 100
+    MoveSpeed: 3
+    ShotSpeed: 0.6

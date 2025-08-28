@@ -14,8 +14,9 @@ public class BotController : MonoBehaviour
         {
             Bot = GetComponent<Bot>(),
             BotController = this,
+            Stat = GetComponent<IStat>().Stat,
             Animator = GetComponentInChildren<Animator>(),
-            Rigidbody2D = GetComponent<Rigidbody2D>(),
+            RigidBody2D = GetComponent<Rigidbody2D>(),
         };
         
         states = GetComponentsInChildren<BotStateBase>();
@@ -23,6 +24,7 @@ public class BotController : MonoBehaviour
         foreach (var state in states)
         {
             state.Initialize(context);
+            state.gameObject.SetActive(false);
         }
         
         currentState = states[0];
@@ -31,7 +33,8 @@ public class BotController : MonoBehaviour
 
     private IEnumerator WaitStateEnter()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(5f);
+        currentState?.gameObject.SetActive(true);
         currentState?.StateEnter();
     }
 
@@ -39,11 +42,13 @@ public class BotController : MonoBehaviour
     {
         if (enabled == false) return;
         
+        currentState?.gameObject.SetActive(false);
         currentState?.StateExit();
         currentState = states.FirstOrDefault(state => state is T);
         
         if (currentState == null) currentState = states[0];
         
+        currentState?.gameObject.SetActive(true);
         currentState?.StateEnter();
     }
 }

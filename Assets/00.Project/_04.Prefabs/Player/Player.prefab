@@ -267,6 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3807530164454582221}
   - component: {fileID: 2093083838723102430}
+  - component: {fileID: 6347015769624804723}
   m_Layer: 0
   m_Name: PlayerWalkState
   m_TagString: Untagged
@@ -299,6 +300,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7aff0454792d5d849ab220c317b5a4eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6347015769624804723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605785942270884187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b4e0acac948a148903571cc7995f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2359896211079604955
@@ -381,7 +394,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2359896211079604955}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -424,8 +437,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9489a50eb74717f47a11f5580ec7264d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHp>k__BackingField: 100
-  <CurrentHp>k__BackingField: 100
+  <Stat>k__BackingField:
+    MaxHp: 100
+    CurrentHp: 100
+    MoveSpeed: 3
+    ShotSpeed: 0.6
 --- !u!1 &2542328575501659015
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,6 +1051,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2540786196315164490}
   - component: {fileID: 2016571609147124088}
+  - component: {fileID: 6762664210641655037}
   m_Layer: 0
   m_Name: PlayerAttackState
   m_TagString: Untagged
@@ -1069,5 +1086,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c6cf9441e619a748b05f3044cd4db5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDelay: 2
+--- !u!114 &6762664210641655037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8863812084260623617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7272828ee5c3bb48aade05380108b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 5790679564297895805, guid: 4a500fe01baded045a2cf4d803e3278f, type: 3}
+  arrowAngle: 180

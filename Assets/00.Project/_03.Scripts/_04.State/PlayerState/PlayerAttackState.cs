@@ -4,75 +4,22 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerStateBase
 {
-    private static readonly int Attack = Animator.StringToHash("Attack");
-
-    [Header("AttackSettings")] [SerializeField]
-    private float attackDelay;
-
-    [SerializeField] private Arrow arrowPrefab;
-
-    private Queue<Arrow> arrows = new Queue<Arrow>();
-
-    private Coroutine attackCroutine;
-
+    private AttackBase attackBase;
+    
+    public override void Initialize(PlayerContext context)
+    {
+        base.Initialize(context);
+        attackBase = GetComponent<AttackBase>();
+        attackBase.Initialize(context);
+    }
+    
     public override void StateEnter()
     {
-        attackCroutine = StartCoroutine(ShotArrow());
-    }
-
-    private IEnumerator ShotArrow()
-    {
-        WaitForSeconds wfs = new WaitForSeconds(attackDelay);
-        
-        while (true)
-        {
-            Animator.SetTrigger(Attack);
-            
-            yield return null;
-            
-            while (Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.6f)
-            {
-                yield return null;
-            }
-
-            PoolArrow();
-
-            yield return wfs;
-        }
-    }
-
-    private void PoolArrow()
-    {
-        Arrow arrow = null;
-
-        if (arrows.Count > 0)
-        {
-            for (int i = 0; i < arrows.Count; i++)
-            {
-                arrow = arrows.Dequeue();
-                if (arrow.gameObject.activeSelf == false)
-                {
-                    Arrow(arrow);
-                    arrows.Enqueue(arrow);
-                    return;
-                }
-
-                arrows.Enqueue(arrow);
-            }
-        }
-
-        arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity, transform);
-        Arrow(arrow);
-        arrows.Enqueue(arrow);
-    }
-
-    private void Arrow(Arrow arrow)
-    {
-        arrow.gameObject.SetActive(true);
-        Vector2 p0 = PlayerController.transform.position + (Vector3.up * 0.5f);
-        Vector2 p1 = Vector2.up * 8f;
-        Vector2 p2 = GameManager.Instance.Bot.transform.position;
-        arrow.ShotArrow(p0, p1, p2, 180f);
+        attackBase.TargetRigidBody2D = GameManager.Instance.Bot.GetComponent<Rigidbody2D>();
+        attackBase.AttackEntry(Stat.ShotSpeed);
+        Vector3 scale = Rigidbody2D.transform.localScale;
+        scale.x = -1f;
+        Rigidbody2D.transform.localScale = scale;
     }
 
     private void Update()
@@ -85,6 +32,6 @@ public class PlayerAttackState : PlayerStateBase
 
     public override void StateExit()
     {
-        attackCroutine = null;
+        attackBase.AttackEnd();
     }
 }

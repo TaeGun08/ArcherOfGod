@@ -6,9 +6,7 @@ using UnityEngine;
 public class Arrow : MonoBehaviour, ITarget
 {
     [field: Header("Arrow")]
-    [field: SerializeField]
-    public bool TargetPlayerOrBot { get; set; }
-
+    [field: SerializeField] public bool TargetPlayerOrBot { get; set; }
     [SerializeField] private float damage;
     [SerializeField] private float duration = 2f;
     private float elapsedTime = 0f;
@@ -57,15 +55,16 @@ public class Arrow : MonoBehaviour, ITarget
         if (damageable == null) return;
         damageable.TakeDamage(damage);
         gameObject.SetActive(false);
+        StopCoroutine(coroutine);
         coroutine = null;
     }
 
-    public void ShotArrow(Vector2 p0, Vector2 p1, Vector2 p2, float a)
+    public void ShotArrow(Vector2 p0, Vector2 p1, Vector2 p2)
     {
-        coroutine = StartCoroutine(ShotArrowCoroutine(p0, p1, p2, a));
+        coroutine = StartCoroutine(ShotArrowCoroutine(p0, p1, p2));
     }
 
-    private IEnumerator ShotArrowCoroutine(Vector2 p0, Vector2 p1, Vector2 p2, float a)
+    private IEnumerator ShotArrowCoroutine(Vector2 p0, Vector2 p1, Vector2 p2)
     {
         Vector2 previousPos = p0;
         p2.y = -1.55f;
@@ -83,7 +82,7 @@ public class Arrow : MonoBehaviour, ITarget
             if (direction != Vector2.zero)
             {
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0f, 0f, angle + a);
+                transform.rotation = Quaternion.Euler(0f, 0f, angle);
             }
 
             previousPos = pos;

@@ -14,8 +14,9 @@ public class PlayerController : MonoBehaviour
         {
             Player = GetComponent<Player>(),
             PlayerController = this,
+            Stat = GetComponent<IStat>().Stat,
             Animator = GetComponentInChildren<Animator>(),
-            Rigidbody2D = GetComponent<Rigidbody2D>(),
+            RigidBody2D = GetComponent<Rigidbody2D>(),
         };
         
         states = GetComponentsInChildren<PlayerStateBase>();
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
         foreach (var state in states)
         {
             state.Initialize(context);
+            state.gameObject.SetActive(false);
         }
         
         currentState = states[0];
@@ -31,7 +33,8 @@ public class PlayerController : MonoBehaviour
     
     private IEnumerator WaitStateEnter()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(5f);
+        currentState?.gameObject.SetActive(true);
         currentState?.StateEnter();
     }
 
@@ -39,11 +42,13 @@ public class PlayerController : MonoBehaviour
     {
         if (enabled == false) return;
         
+        currentState?.gameObject.SetActive(false);
         currentState?.StateExit();
         currentState = states.FirstOrDefault(state => state is T);
         
         if (currentState == null) currentState = states[0];
         
+        currentState?.gameObject.SetActive(true);
         currentState?.StateEnter();
     }
 }

@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSkillState : MonoBehaviour
+public class PlayerSkillState : PlayerStateBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void StateEnter()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void StateExit()
     {
-        
     }
 }

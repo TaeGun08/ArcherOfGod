@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDeadState : MonoBehaviour
+public class PlayerDeadState : PlayerStateBase
 {
-    // Start is called before the first frame update
-    void Start()
+    private static readonly int Dead = Animator.StringToHash("Dead");
+
+    public override void StateEnter()
     {
-        
+        Animator.SetTrigger(Dead);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void StateExit()
     {
         
     }

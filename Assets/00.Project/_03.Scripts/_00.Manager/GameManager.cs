@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : SingletonBehavior<GameManager>
 {
@@ -21,4 +22,18 @@ public class GameManager : SingletonBehavior<GameManager>
     [field: Header("Player&Bot")]
     [field: SerializeField] public Player Player { get; set; }
     [field: SerializeField] public Bot Bot { get; set; }
+    [Space]
+    [Header("HpUI")]
+    [SerializeField] private Slider playerHp;
+    [SerializeField] private Slider botHp;
+
+    public void UpdatePlayerHp()
+    {
+        playerHp.value = Player.Stat.CurrentHp / Player.Stat.MaxHp;
+    }
+
+    public void UpdateBotHp()
+    {
+        botHp.value = Bot.Stat.CurrentHp / Bot.Stat.MaxHp;
+    }
 }
