@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class DivineArcherDance : SkillBase
 {
+    private static readonly int Attack = Animator.StringToHash("Attack");
+    
     [Header("SkillSettings")] 
     [SerializeField] private float jumpForce;
     [SerializeField] private float spinSpeed;
@@ -26,6 +28,8 @@ public class DivineArcherDance : SkillBase
         float nextShotTime = 0f;
         int fired = 0;
 
+        animator.SetTrigger(Attack);
+        
         while (elapsed < duration)
         {
             float rotation = spinSpeed * Time.deltaTime;

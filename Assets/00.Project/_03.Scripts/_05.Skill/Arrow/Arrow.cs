@@ -9,11 +9,14 @@ public class Arrow : MonoBehaviour, ITarget
     [field: SerializeField] public bool TargetPlayerOrBot { get; set; }
     [SerializeField] private float damage;
     [field: SerializeField] public float Duration { get; set; }
+    [SerializeField] private ParticleSystem particlePrefab;
     private float elapsedTime = 0f;
 
     private Coroutine coroutine;
 
     private Collider2D collider2D;
+    
+    private ParticleSystem particle;
 
     private void Awake()
     {
@@ -36,18 +39,38 @@ public class Arrow : MonoBehaviour, ITarget
                 {
                     damageable = other.GetComponent<IDamageAble>();
                     DamageAble(damageable);
+                    ArrowParticle();
                 }
-
                 break;
             case false:
                 if (other.gameObject.layer == LayerMask.NameToLayer("Bot"))
                 {
                     damageable = other.GetComponent<IDamageAble>();
                     DamageAble(damageable);
+                    ArrowParticle();
                 }
-
                 break;
         }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            ArrowParticle();
+        }
+    }
+
+    private void ArrowParticle()
+    {
+        if (particlePrefab == null) return;
+        if (particle == null)
+        {
+            particle = Instantiate(particlePrefab, transform.position, Quaternion.identity, GameManager.Instance.transform);
+            particle.Play();
+            return;
+        }
+        
+        particle.transform.position = transform.position;
+        particle.gameObject.SetActive(true);
+        particle.Play();
     }
 
     private void DamageAble(IDamageAble damageable)

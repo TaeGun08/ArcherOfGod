@@ -6,6 +6,7 @@ public class GamePlayingState : GameStateBase
 {
     public override void StateEnter()
     {
+        GameManager.Instance.GameStarted = true;
         StartCoroutine(TimerCoroutine());
     }
 

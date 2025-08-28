@@ -635,6 +635,7 @@ GameObject:
   - component: {fileID: 5611662911209504721}
   - component: {fileID: 2116633194116948374}
   - component: {fileID: 5777748161588937552}
+  - component: {fileID: 8730597518523341026}
   m_Layer: 0
   m_Name: PlayerSkillState
   m_TagString: Untagged
@@ -686,6 +687,21 @@ MonoBehaviour:
   duration: 1
   arrow: {fileID: 5790679564297895805, guid: 4a500fe01baded045a2cf4d803e3278f, type: 3}
   shotInterval: 0.2
+--- !u!114 &8730597518523341026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4238320365689891338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8727d0373c5d7b54784f2912bfbb2fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrow: {fileID: 1743125636415565637, guid: 46b07883973f6a3478ce18634d32950a, type: 3}
+  attackDelay: 0.2
+  arrowCount: 3
 --- !u!1 &4409242864860124615
 GameObject:
   m_ObjectHideFlags: 0

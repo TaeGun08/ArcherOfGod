@@ -27,6 +27,7 @@ public class InputController : SingletonBehavior<InputController>
 
     private void InputSelectSkill()
     {
+        if (GameManager.Instance.GameStarted == false) return;
         if (Input.GetKeyDown(KeyCode.Alpha1)) SkillCount = 1;
         else if (Input.GetKeyDown(KeyCode.Alpha2)) SkillCount = 2;
         else if (Input.GetKeyDown(KeyCode.Alpha3)) SkillCount = 3;
