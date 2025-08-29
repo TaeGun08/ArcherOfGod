@@ -55,14 +55,14 @@ public class GamePlayingState : GameStateBase
         switch (random)
         {
             case 0:
-                GameManager.Instance.Bot.Stat.ShotSpeed += Random.Range(-1f, 1f);
+                GameManager.Instance.Bot.Stat.ShotSpeed += Random.Range(-0.4f, 0.4f);
                 if (GameManager.Instance.Bot.Stat.ShotSpeed <= 0.1f)
                 {
-                    GameManager.Instance.Bot.Stat.MoveSpeed = 0.1f;
+                    GameManager.Instance.Bot.Stat.ShotSpeed = 0.1f;
                 }
                 break;
             case 1:
-                GameManager.Instance.Bot.Stat.MoveSpeed += Random.Range(-2f, 2f);
+                GameManager.Instance.Bot.Stat.MoveSpeed += Random.Range(-1f, 1f);
                 if (GameManager.Instance.Bot.Stat.MoveSpeed <= 0.5f)
                 {
                     GameManager.Instance.Bot.Stat.MoveSpeed = 0.5f;
