@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 8369265791518675605}
   - component: {fileID: 8139935290290030766}
   - component: {fileID: 3294645697204321405}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ArrowScanner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -933,6 +933,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5200049444913669837}
   - component: {fileID: 7487504906079857512}
+  - component: {fileID: 5070965368654350032}
+  - component: {fileID: 1670475934216623788}
+  - component: {fileID: 4879499788167576660}
+  - component: {fileID: 96334355132661349}
+  - component: {fileID: 1274512844296000528}
   m_Layer: 0
   m_Name: BotSkillState
   m_TagString: Untagged
@@ -967,6 +972,92 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5750f9c0cbca0724c934dfd135787bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5070965368654350032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6433647958970681067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c00d94b050f10fa4db50d9bc4e3d55c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolTime: 10
+  <CanUseSkill>k__BackingField: 0
+  jumpForce: 7
+  spinSpeed: 720
+  duration: 1
+  arrow: {fileID: 5790679564297895805, guid: 4a500fe01baded045a2cf4d803e3278f, type: 3}
+  shotInterval: 0.2
+--- !u!114 &1670475934216623788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6433647958970681067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8727d0373c5d7b54784f2912bfbb2fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolTime: 20
+  <CanUseSkill>k__BackingField: 0
+  arrow: {fileID: 1743125636415565637, guid: 46b07883973f6a3478ce18634d32950a, type: 3}
+  arrowCount: 3
+--- !u!114 &4879499788167576660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6433647958970681067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c5d0513d99873458f783eaeeef562e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolTime: 15
+  <CanUseSkill>k__BackingField: 0
+  arrowPrefab: {fileID: 5790679564297895805, guid: 4a500fe01baded045a2cf4d803e3278f, type: 3}
+  arrowCount: 10
+  interval: 0.1
+  spawnHeight: 10
+  spreadX: 2
+  duration: 1
+--- !u!114 &96334355132661349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6433647958970681067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c47b60b73b99b46a20ebc78dd867a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolTime: 15
+  <CanUseSkill>k__BackingField: 0
+  arrow: {fileID: 8602080875346154877, guid: 2cdbbdc0ea4375646979c95bd38b78ba, type: 3}
+--- !u!114 &1274512844296000528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6433647958970681067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e3cc1d719f4784790f807dff75a4eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolTime: 30
+  <CanUseSkill>k__BackingField: 0
+  whirlwind: {fileID: 1563641868340600249, guid: f5486a173cea060499fcca7fd7199527, type: 3}
+  whirlwindTarget: 0
 --- !u!1 &6993164692309195641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,7 +1268,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Stat>k__BackingField:
-    MaxHp: 100
-    CurrentHp: 100
+    MaxHp: 1000
+    CurrentHp: 1000
     MoveSpeed: 3
     ShotSpeed: 0.6
+  botSkillState: {fileID: 7487504906079857512}

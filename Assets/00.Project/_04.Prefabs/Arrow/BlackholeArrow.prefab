@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <TargetPlayerOrBot>k__BackingField: 0
-  damage: 5
+  damage: 15
   <Duration>k__BackingField: 5
   particlePrefab: {fileID: 5824670795371433368, guid: f6fd568b816c64943a44efc3add3a881, type: 3}
   groundVfx: 1

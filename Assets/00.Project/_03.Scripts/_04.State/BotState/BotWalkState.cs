@@ -34,7 +34,7 @@ public class BotWalkState : BotStateBase
         {
             waitTime -= Time.fixedDeltaTime;
             randomTime -= Time.fixedDeltaTime;
-            
+
             if (randomTime <= 0)
             {
                 float dirX = Random.Range(0, 2) == 0 ? -1 : 1;
@@ -45,7 +45,17 @@ public class BotWalkState : BotStateBase
             yield return new WaitForFixedUpdate();
         }
 
-        BotController.ChangeState<BotAttackState>();
+        int random = Random.Range(0, 3);
+        switch (random)
+        {
+            case 0:
+            case 1:
+                BotController.ChangeState<BotAttackState>();
+                break;
+            default:
+                Bot.TryUseSkill();
+                break;
+        }
     }
 
     private void FixedUpdate()

@@ -31,7 +31,17 @@ public class BotAttackState : BotStateBase
     private IEnumerator RandomTimeCoroutine()
     {
         yield return new WaitForSeconds(Random.Range(2f, 4f));
-        BotController.ChangeState<BotWalkState>();
+        int random = Random.Range(0, 3);
+        switch (random)
+        {
+            case 0:
+            case 1:
+                BotController.ChangeState<BotWalkState>();
+                break;
+            default:
+                Bot.TryUseSkill();
+                break;
+        }
     }
 
     public override void StateExit()

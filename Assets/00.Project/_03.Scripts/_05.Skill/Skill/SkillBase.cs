@@ -10,13 +10,20 @@ public abstract class SkillBase : MonoBehaviour
     protected Rigidbody2D rigidbody2D;
     public Rigidbody2D TargetRigidBody2D { get; set; }
 
-    private Queue<GameObject> pools = new Queue<GameObject>();
+    protected Queue<GameObject> pools = new Queue<GameObject>();
     protected Coroutine skillCroutine;
+    protected Coroutine skillCoolCoroutine;
     
+    [SerializeField] private int coolTime;
+    public int CoolTime => coolTime;
+    public float CoolTimer { get; set; }
+    [field: SerializeField] public bool CanUseSkill { get; set; }
+
     public virtual void Initialize(IContextBase context)
     {
         animator = context.Animator;
         rigidbody2D = context.RigidBody2D;
+        CanUseSkill = true;
     }
     
     protected GameObject PoolObject(GameObject prefab)
@@ -31,6 +38,7 @@ public abstract class SkillBase : MonoBehaviour
                 if (pool.activeSelf == false)
                 {
                     pools.Enqueue(pool);
+                    pool.SetActive(true);
                     return pool;
                 }
 
@@ -40,13 +48,20 @@ public abstract class SkillBase : MonoBehaviour
 
         pool = Instantiate(prefab, transform.position, Quaternion.Euler(0, 0, -180f), GameManager.Instance.transform);
         pools.Enqueue(pool);
+        pool.SetActive(true);
         return pool;
     }
 
     public virtual void SkillEntry()
     {
-        animator.ResetTrigger("Idle");
-        animator.ResetTrigger("Walk");
+        if (animator != null)
+        {
+            animator.ResetTrigger("Walk");
+            animator.ResetTrigger("Idle");
+            animator.ResetTrigger(Attack);
+        }
+
+        SkillCoolTimeManager.Instance.StartCooldown(this);
         skillCroutine = StartCoroutine(SkillCoroutine());
     }
 

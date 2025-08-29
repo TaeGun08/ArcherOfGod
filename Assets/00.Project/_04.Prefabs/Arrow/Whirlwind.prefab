@@ -4905,11 +4905,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 862d356947a582e4abc417a97632aa91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 50
   pullRadius: 2
   swirlSpeed: 5
   pullStrength: 0.5
   randomness: 0.1
+  whirlDuration: 6
 --- !u!1 &2986399218014795495
 GameObject:
   m_ObjectHideFlags: 0

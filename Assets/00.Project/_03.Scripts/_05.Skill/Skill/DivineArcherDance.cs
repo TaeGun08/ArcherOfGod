@@ -41,7 +41,14 @@ public class DivineArcherDance : SkillBase
 
         
         yield return new WaitForSeconds(0.6f);
-        GameManager.Instance.Player.PlayerController.ChangeState<PlayerAttackState>();
+        if (rigidbody2D.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            GameManager.Instance.Player.PlayerController.ChangeState<PlayerAttackState>();
+        }
+        else
+        {
+            GameManager.Instance.Bot.BotController.ChangeState<BotAttackState>();
+        }
     }
 
     private void Arrow(Arrow arrow)

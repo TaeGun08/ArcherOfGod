@@ -33,6 +33,9 @@ public class GameManager : SingletonBehavior<GameManager>
     [Header("HpUI")] 
     [SerializeField] private Slider playerHp;
     [SerializeField] private Slider botHp;
+    [SerializeField] private TMP_Text[] hpTexts;
+
+    [field: SerializeField] public TMP_Text StatText { get; set; }
 
     private void Start()
     {
@@ -42,10 +45,24 @@ public class GameManager : SingletonBehavior<GameManager>
     public void UpdatePlayerHp()
     {
         playerHp.value = Player.Stat.CurrentHp / Player.Stat.MaxHp;
+        hpTexts[0].text = Player.Stat.CurrentHp.ToString();
     }
 
     public void UpdateBotHp()
     {
         botHp.value = Bot.Stat.CurrentHp / Bot.Stat.MaxHp;
+        hpTexts[1].text = Bot.Stat.CurrentHp.ToString();
+    }
+
+    public void UpDownText()
+    {
+        StartCoroutine(UpDownTextCoroutine());
+    }
+    
+    private IEnumerator UpDownTextCoroutine()
+    {
+        StatText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        StatText.gameObject.SetActive(false);
     }
 }

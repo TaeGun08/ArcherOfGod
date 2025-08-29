@@ -438,8 +438,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Stat>k__BackingField:
-    MaxHp: 100
-    CurrentHp: 100
+    MaxHp: 1000
+    CurrentHp: 1000
     MoveSpeed: 3
     ShotSpeed: 0.6
 --- !u!1 &2542328575501659015
@@ -634,11 +634,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5611662911209504721}
   - component: {fileID: 2116633194116948374}
-  - component: {fileID: 5777748161588937552}
-  - component: {fileID: 8730597518523341026}
-  - component: {fileID: 4047542512866407364}
-  - component: {fileID: 6328799577425829749}
-  - component: {fileID: 5688133472079124953}
+  - component: {fileID: 7448187010525751343}
+  - component: {fileID: 1899483261021093454}
+  - component: {fileID: 5193391243500157292}
+  - component: {fileID: 24862663576804926}
+  - component: {fileID: 3164751890981372187}
   m_Layer: 0
   m_Name: PlayerSkillState
   m_TagString: Untagged
@@ -673,7 +673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a007a615a21f0c34492e45fe7a422d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5777748161588937552
+--- !u!114 &7448187010525751343
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -685,12 +685,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00d94b050f10fa4db50d9bc4e3d55c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coolTime: 10
+  <CanUseSkill>k__BackingField: 0
   jumpForce: 7
   spinSpeed: 720
   duration: 1
   arrow: {fileID: 5790679564297895805, guid: 4a500fe01baded045a2cf4d803e3278f, type: 3}
   shotInterval: 0.2
---- !u!114 &8730597518523341026
+--- !u!114 &1899483261021093454
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -702,9 +704,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8727d0373c5d7b54784f2912bfbb2fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coolTime: 20
+  <CanUseSkill>k__BackingField: 0
   arrow: {fileID: 1743125636415565637, guid: 46b07883973f6a3478ce18634d32950a, type: 3}
   arrowCount: 3
---- !u!114 &4047542512866407364
+--- !u!114 &5193391243500157292
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -716,13 +720,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c5d0513d99873458f783eaeeef562e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coolTime: 15
+  <CanUseSkill>k__BackingField: 0
   arrowPrefab: {fileID: 5790679564297895805, guid: 4a500fe01baded045a2cf4d803e3278f, type: 3}
   arrowCount: 10
   interval: 0.1
   spawnHeight: 10
   spreadX: 2
   duration: 1
---- !u!114 &6328799577425829749
+--- !u!114 &24862663576804926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -734,8 +740,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c47b60b73b99b46a20ebc78dd867a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coolTime: 15
+  <CanUseSkill>k__BackingField: 0
   arrow: {fileID: 8602080875346154877, guid: 2cdbbdc0ea4375646979c95bd38b78ba, type: 3}
---- !u!114 &5688133472079124953
+--- !u!114 &3164751890981372187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -747,7 +755,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e3cc1d719f4784790f807dff75a4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coolTime: 30
+  <CanUseSkill>k__BackingField: 0
   whirlwind: {fileID: 1563641868340600249, guid: f5486a173cea060499fcca7fd7199527, type: 3}
+  whirlwindTarget: 1
 --- !u!1 &4409242864860124615
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,60 +4,77 @@ using UnityEngine;
 public class Whirlwind : ImpactBase
 {
     [Header("Whirlwind Settings")]
-    [SerializeField] private float pullRadius = 3f;       // 끌어당기는 범위
-    [SerializeField] private float swirlSpeed = 180f;     // 회전 속도
-    [SerializeField] private float pullStrength = 0.5f;   // 중심으로 끌어당기는 힘
-    [SerializeField] private float randomness = 0.1f;     // 회전 불규칙성 (조금 줄임)
+    [SerializeField] private float pullRadius = 3f;
+    [SerializeField] private float swirlSpeed = 180f;
+    [SerializeField] private float pullStrength = 0.5f;
+    [SerializeField] private float randomness = 0.1f;
 
-    private List<Transform> swirlingArrows = new List<Transform>();
-    private Dictionary<Transform, float> arrowDistances = new Dictionary<Transform, float>();
+    [Header("Duration & Target")]
+    [SerializeField] private float whirlDuration = 2f;
+
+    private readonly List<Arrow> arrows = new();
+    private float timer;
+    private bool released;
+
+    public bool WhirlwindTarget { get; set; }
+
+    private void OnEnable()
+    {
+        timer = 0f;
+        released = false;
+        arrows.Clear();
+    }
 
     protected override void OnImpact()
     {
-        // 범위 내 화살 감지
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, pullRadius);
-        foreach (Collider2D hit in hits)
+        timer += Time.deltaTime;
+
+        switch (released)
         {
-            Arrow arrow = hit.GetComponent<Arrow>();
-            if (arrow != null && !swirlingArrows.Contains(hit.transform))
+            case false when timer < whirlDuration:
             {
-                swirlingArrows.Add(hit.transform);
-                arrow.StopArrowCoroutine(); // 안전하게 코루틴 종료
-                arrowDistances[arrow.transform] = Vector3.Distance(transform.position, arrow.transform.position);
+                foreach (var hit in Physics2D.OverlapCircleAll(transform.position, pullRadius))
+                {
+                    Arrow arrow = hit.GetComponent<Arrow>();
+                    if (arrow == null || arrows.Contains(arrow)) continue;
+                    arrows.Add(arrow);
+                    arrow.StopArrowCoroutine();
+                }
+
+                foreach (var arrow in arrows)
+                {
+                    if (arrow == null) continue;
+
+                    Vector3 dir = transform.position - arrow.transform.position;
+                    Vector3 tangent = new Vector3(-dir.y, dir.x, 0).normalized;
+
+                    arrow.transform.position += tangent * (swirlSpeed * Time.deltaTime);
+                    arrow.transform.position += dir.normalized * (pullStrength * Time.deltaTime);
+                    arrow.transform.position += (Vector3)Random.insideUnitCircle * (randomness * Time.deltaTime);
+                }
+
+                break;
             }
-        }
-
-        // 회오리 이동 처리
-        for (int i = 0; i < swirlingArrows.Count; i++)
-        {
-            Transform arrow = swirlingArrows[i];
-
-            // 이미 제거된 화살이면 리스트에서 삭제
-            if (arrow == null)
+            case false:
             {
-                swirlingArrows.RemoveAt(i);
-                arrowDistances.Remove(arrow);
-                i--;
-                continue;
+                released = true;
+                foreach (var arrow in arrows)
+                {
+                    if (arrow == null) continue;
+
+                    arrow.TargetPlayerOrBot = !WhirlwindTarget;
+                    Vector2 p0 = arrow.transform.position;
+                    Vector2 p1 = Vector2.up * 8f;
+                    Vector2 target = WhirlwindTarget
+                        ? GameManager.Instance.Bot.transform.position
+                        : GameManager.Instance.Player.transform.position;
+                    Vector2 p2 = target + new Vector2(Random.Range(-3f, 3f), 0f);
+
+                    arrow.ShotArrow(p0, p1, p2);
+                }
+                gameObject.SetActive(false);
+                break;
             }
-
-            float distance = arrowDistances[arrow];
-            Vector3 centerDir = transform.position - arrow.position;
-
-            // 중심 기준 접선 방향
-            Vector3 tangent = new Vector3(-centerDir.y, centerDir.x, 0).normalized;
-
-            // 일정 속도 회전 + 살짝 랜덤
-            float swirlThisFrame = swirlSpeed * Time.deltaTime * (1f + Random.Range(-randomness, randomness));
-            Vector3 randomOffset = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), 0) * randomness;
-
-            // 위치 업데이트 (회전 + 중심 끌기 + 불규칙 움직임)
-            arrow.position += tangent * swirlThisFrame;
-            arrow.position += centerDir.normalized * pullStrength * Time.deltaTime;
-            arrow.position += randomOffset * Time.deltaTime;
-
-            // 거리 업데이트
-            arrowDistances[arrow] = Mathf.Max(0.1f, distance - pullStrength * Time.deltaTime);
         }
     }
 }

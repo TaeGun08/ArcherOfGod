@@ -26,7 +26,7 @@ public class Arrow : MonoBehaviour, ITarget
         collider2D = GetComponent<Collider2D>();
     }
 
-    private void OnDisable()
+    private void OnEnable()
     {
         ResetArrow();
     }
@@ -104,6 +104,7 @@ public class Arrow : MonoBehaviour, ITarget
     
     public void ShotArrow(Vector2 p0, Vector2 p1, Vector2 p2)
     {
+        ResetArrow();
         arrowCoroutine = StartCoroutine(ShotArrowCoroutine(p0, p1, p2));
     }
 

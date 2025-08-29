@@ -12,6 +12,9 @@ public class Bot : MonoBehaviour, IDamageAble, IStat
     public BotController BotController { get; set; }
 
     private Animator animator;
+    
+    [SerializeField] private BotSkillState botSkillState;
+    public int BotSkillCount { get; set; }
 
     private void Awake()
     {
@@ -29,5 +32,20 @@ public class Bot : MonoBehaviour, IDamageAble, IStat
         BotController.ChangeState<BotDeadState>();
         animator.SetTrigger(Dead);
         GameManager.Instance.GameController.ChangeState<GameEndState>();
+    }
+    
+    public void TryUseSkill()
+    {
+        int index = Random.Range(0, botSkillState.SkillBases.Length);
+        var skill = botSkillState.SkillBases[index];
+        if (skill == null) return;
+        if (skill.CanUseSkill == false)
+        {
+            BotController.ChangeState<BotWalkState>();
+            return;
+        }
+
+        BotSkillCount = index;
+        BotController.ChangeState<BotSkillState>();
     }
 }

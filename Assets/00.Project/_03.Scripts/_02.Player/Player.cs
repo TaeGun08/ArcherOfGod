@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, IDamageAble, IStat
     public PlayerController PlayerController { get; set; }
 
     private Animator animator;
-
+    
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();

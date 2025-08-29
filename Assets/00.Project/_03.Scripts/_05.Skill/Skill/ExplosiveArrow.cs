@@ -25,7 +25,14 @@ public class ExplosiveArrow : SkillBase
         }
 
         yield return new WaitForSeconds(0.25f);
-        GameManager.Instance.Player.PlayerController.ChangeState<PlayerAttackState>();
+        if (rigidbody2D.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            GameManager.Instance.Player.PlayerController.ChangeState<PlayerAttackState>();
+        }
+        else
+        {
+            GameManager.Instance.Bot.BotController.ChangeState<BotAttackState>();
+        }
     }
 
 

@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerSkillState : PlayerStateBase
 {
     private SkillBase[] skillBases;
+    public SkillBase[] SkillBases => skillBases;
     private SkillBase skill;
-    
+
     public override void Initialize(PlayerContext context)
     {
         base.Initialize(context);
@@ -20,7 +21,7 @@ public class PlayerSkillState : PlayerStateBase
     
     public override void StateEnter()
     {
-        skill = skillBases[InputController.Instance.SkillCount - 1];
+        skill = skillBases[InputController.Instance.SkillCount];
         skill.TargetRigidBody2D = GameManager.Instance.Bot.GetComponent<Rigidbody2D>();
         Vector3 scale = Rigidbody2D.transform.localScale;
         scale.x = -1f;
